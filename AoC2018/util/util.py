@@ -3,15 +3,15 @@ from collections import Counter
 import time
 
 
-def get_input_lines(day):
-    with open('input', 'r') as f:
+def get_input_lines(file_to_read):
+    with open(file_to_read, 'r') as f:
         return f.readlines()
 
 
 def run_timer(func):
-    def wrapper(run):
+    def wrapper():
         start_time = time.time()
-        func(run)
+        func()
         end_time = time.time()
         run_time = end_time - start_time
         print(f'runtime: {run_time}')

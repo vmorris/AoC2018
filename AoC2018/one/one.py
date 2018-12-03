@@ -1,43 +1,38 @@
-"""
-$ python AoC2018/one/one.py
-72330
-loop count: 144
-runtime: 0.04109048843383789
-"""
 
-from AoC2018.day import day
 from AoC2018.util import util
 
 
-class One(day.Day):
-    def __init__(self):
-        self.name = 'one'
-        day.Day.__init__(self, self.name)
+def change_frequency(frequency, change):
+    return frequency + int(change)
 
-        self.input_lines = self.get_input_lines()
-        self.frequency = 0
-        self.frequencies = set()
 
-    def calibrate_frequency(self):
-        for drift in self.input_lines:
-            self.frequency += int(drift)
-            if self.frequency in self.frequencies:
-                return True
-            self.frequencies.add(self.frequency)
+def process_changes(lines):
+    frequency = 0
+    for change in lines:
+        frequency = change_frequency(frequency, change)
+    return frequency
 
-    @util.run_timer
-    def main(self):
-        self.frequencies.add(self.frequency) # add zero to the set
 
-        loop_count = 0
-        found = False
-        while not found:
-            found = self.calibrate_frequency()
-            loop_count += 1
+def find_duplicate(lines):
+    frequency = 0
+    frequencies = set()  # store every frequency found
+    frequencies.add(frequency)
+    while True:
+        for change in lines:
+            frequency = change_frequency(frequency, change)
+            if frequency in frequencies:
+                return frequency
+            frequencies.add(frequency)
 
-        print(f'frequency: {self.frequency}')
-        print(f'loop count: {loop_count}')
+
+@util.run_timer
+def main():
+    lines = util.get_input_lines('input')
+    result = process_changes(lines)
+    print(f'first frequency: {result}')
+    result = find_duplicate(lines)
+    print(f'first duplicate frequency: {result}')
 
 
 if __name__ == '__main__':
-    One().main()
+    main()

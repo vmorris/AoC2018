@@ -1,36 +1,43 @@
-"""
-/home/vance/PycharmProjects/AoC2018/venv/bin/python /home/vance/PycharmProjects/AoC2018/AoC2018/two/two_first.py
-Checksum: 7904
-runtime: 0.0023674964904785156
 
-Process finished with exit code 0
-"""
+from collections import Counter
 
-from AoC2018.day import day
 from AoC2018.util import util
 
 
-class Two(day.Day):
-    def __init__(self):
-        self.name = 'two'
-        day.Day.__init__(self, self.name)
+def count_twos_threes(line):
+    """
+    Counts the frequency of double and triple letters in a string.
+    Return list: first element is true if some letters occur exactly 2 times
+        and second element is true if some letters occur exactly 3 times.
+    :param line: input line
+    :return: list of 2 booleans
+    """
+    c = Counter(line).values()
+    return [2 in c, 3 in c]
 
-        self.input_lines = self.get_input_lines()
 
-        self.two_boxes = 0
-        self.three_boxes = 0
+def calculate_checksum(lines):
+    """
+    Tally up all the results of the count_tows_threes and multiply them together.
+    :param lines: input lines
+    :return: integer checksum
+    """
+    twos = 0
+    threes = 0
+    for box in lines:
+        counts = count_twos_threes(box)
+        if counts[0]:
+            twos += 1
+        if counts[1]:
+            threes += 1
+    return twos * threes
 
-    @util.run_timer
-    def main(self):
 
-        for box in self.input_lines:
-            if util.check_frequency(box, 2):
-                self.two_boxes += 1
-            if util.check_frequency(box, 3):
-                self.three_boxes += 1
-
-        print(f'Checksum: {self.two_boxes * self.three_boxes}')
+@util.run_timer
+def main():
+    result = calculate_checksum(util.get_input_lines('input'))
+    print(f'Checksum: {result}')
 
 
 if __name__ == '__main__':
-    Two().main()
+    main()
