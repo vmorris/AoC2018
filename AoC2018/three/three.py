@@ -1,41 +1,35 @@
 
-
 from AoC2018.util import util
 
 
+class Claim:
+    def __init__(self, claim):
+        data = claim.split()
+        location = data[2].split(',')
+        size = data[3].split('x')
+        self.claim_id = data[0][1:]
+        self.x = int(location[0])
+        self.y = int(location[1][:-1])
+        self.x_offset = self.x + int(size[0])
+        self.y_offset = self.y + int(size[1])
+
+
 def apply_rectangle(fabric, claim):
-    # process claim data
-    data = claim.split()
-    claim_id = data[0][1:]
-    location = data[2].split(',')
-    size = data[3].split('x')
-    from_left = int(location[0])
-    from_top = int(location[1][:-1])
-    width = int(size[0])
-    height = int(size[1])
-    # locate and apply rectangle
-    for y in range(from_top, height + from_top):
-        for x in range(from_left, width + from_left):
+    c = Claim(claim)
+    for y in range(c.y, c.y_offset):
+        for x in range(c.x, c.x_offset):
             if fabric[y][x] is '.':
-                fabric[y][x] = claim_id
+                fabric[y][x] = c.claim_id
             else:
                 fabric[y][x] = 'X'  # this coordinate is already claimed
     return fabric
 
 
 def check_intact(fabric, claim):
-    # process claim data
-    data = claim.split()
-    location = data[2].split(',')
-    size = data[3].split('x')
-    from_left = int(location[0])
-    from_top = int(location[1][:-1])
-    width = int(size[0])
-    height = int(size[1])
-    # see if overlay has occurred
-    for y in range(from_top, height + from_top):
-        for x in range(from_left, width + from_left):
-            if fabric[y][x] is 'X':
+    c = Claim(claim)
+    for y in range(c.y, c.y_offset):
+        for x in range(c.x, c.x_offset):
+            if fabric[y][x] is 'X':  # overlay found
                 return False
     return True
 
