@@ -1,7 +1,6 @@
 import unittest
 
-import AoC2018.three.three_first as first
-import AoC2018.three.three_second as second
+import AoC2018.three.three as three
 
 
 class ThreeTests(unittest.TestCase):
@@ -25,15 +24,15 @@ class ThreeTests(unittest.TestCase):
 
     def test_apply_rectangle(self):
         for line in self.inputs:
-            self.fabric = first.apply_rectangle(self.fabric, line)
+            self.fabric = three.apply_rectangle(self.fabric, line)
         self.assertEqual(self.fabric, self.answer)
 
     def test_count_overlap(self):
-        self.assertEqual(4, first.count_overlap(self.answer))
+        self.assertEqual(4, three.count_overlap(self.answer))
 
     def test_check_intact(self):
         for claim in self.inputs:
-            result = first.check_intact(self.answer, claim)
+            result = three.check_intact(self.answer, claim)
             if result:
                 self.assertEqual('3', result)
 
