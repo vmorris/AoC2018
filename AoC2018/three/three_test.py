@@ -34,7 +34,7 @@ class ThreeTests(unittest.TestCase):
         for claim in self.inputs:
             result = three.check_intact(self.answer, claim)
             if result:
-                self.assertEqual('3', result)
+                self.assertEqual(self.inputs[2], claim)
 
 
 if __name__ == '__main__':

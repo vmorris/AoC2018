@@ -51,6 +51,7 @@ def main():
     fabric = [['.'] * 1000 for i in range(1000)]
 
     claims = util.get_input_lines('input')
+
     for claim in claims:
         apply_rectangle(fabric, claim)
     print(f'overlap count: {count_overlap(fabric)}')
