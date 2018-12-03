@@ -1,6 +1,7 @@
 import unittest
 
 import AoC2018.three.three as three
+import AoC2018.util.util as util
 
 
 class ThreeTests(unittest.TestCase):
@@ -28,7 +29,7 @@ class ThreeTests(unittest.TestCase):
         self.assertEqual(self.fabric, self.answer)
 
     def test_count_overlap(self):
-        self.assertEqual(4, three.count_overlap(self.answer))
+        self.assertEqual(4, util.flatten_and_count_char(self.answer, 'X'))
 
     def test_check_intact(self):
         for claim in self.inputs:

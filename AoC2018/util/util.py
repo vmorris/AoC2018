@@ -1,5 +1,6 @@
 
 from collections import Counter
+from itertools import chain
 import time
 
 
@@ -42,3 +43,14 @@ def match_strings(s1, s2, not_matching):
     """
     count = sum(s1[i] != s2[i] for i in range(len(s1)))
     return count == not_matching
+
+
+def flatten_and_count_char(matrix, to_count):
+    """
+    Flattens an n-dimensional list and then counts the number of occurrences of a specific string.
+    :param matrix: n-dimensional list
+    :param to_count: string to count
+    :return:
+    """
+    flattened = list(chain.from_iterable(matrix))
+    return ''.join(flattened).count(to_count)
