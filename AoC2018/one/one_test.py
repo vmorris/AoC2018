@@ -51,5 +51,6 @@ class OneTests(unittest.TestCase):
         result = one.find_duplicate('+7, +7, -2, -7, -4'.split(','))
         self.assertEqual(14, result)
 
+
 if __name__ == '__main__':
     unittest.main()
